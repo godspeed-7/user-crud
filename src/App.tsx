@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './App.css';
 import userService, { User } from './services/user-service';
 import { CanceledError } from './services/api-client';
 
