@@ -2,24 +2,10 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import userService, { User } from './services/user-service';
 import { CanceledError } from './services/api-client';
+import useUsers from './hooks/useUsers';
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const { request, cancel } = userService.getAll<User>();
-
-    request
-      .then((res) => setUsers(res.data))
-      .catch((error) => {
-        if (error instanceof CanceledError) return;
-        setError(error.message);
-      });
-
-    return () => cancel();
-  }, []);
-
+  const { users, error, setUsers, setError } = useUsers();
   const addUser = () => {
     const originalUsers = [...users];
     const newUser = {
